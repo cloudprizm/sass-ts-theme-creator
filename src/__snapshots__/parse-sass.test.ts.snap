@@ -1,0 +1,773 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add test for negative numbers since it is resolved by expression 1`] = `
+"export type Methods = \\"evaluate\\";
+export type InjectedMethods = Record<
+  Methods,
+  (val: string | string[], src?: string) => string
+>;
+
+export type BulmaVars =
+  | \\"navbarDropdownOffset\\"
+  | \\"navbarBottomBoxShadowSize\\"
+  | \\"navbarDropdownBoxedShadow\\"
+  | \\"tableCellBorderWidth\\"
+  | \\"tableCellPadding\\"
+  | \\"mixedContentWithString\\";
+export type BulmaTheme = Record<BulmaVars, string>;
+
+export const makeBasicTheme = ({ evaluate }: InjectedMethods) => (
+  overriding: Partial<BulmaTheme>
+): BulmaTheme => {
+  const navbarDropdownOffset =
+    overriding.navbarDropdownOffset ||
+    evaluate([\`-4px\`], \\"navbarDropdownOffset\\");
+  const navbarBottomBoxShadowSize =
+    overriding.navbarBottomBoxShadowSize ||
+    evaluate([\`0\`, \`-2px\`, \`0\`, \`0\`], \\"navbarBottomBoxShadowSize\\");
+  const navbarDropdownBoxedShadow =
+    overriding.navbarDropdownBoxedShadow ||
+    evaluate(
+      [
+        \`0\`,
+        \`8px\`,
+        \`8px\`,
+        \`rgba(\${black}, 0.1)\`,
+        \`,\`,
+        \`0\`,
+        \`0\`,
+        \`0\`,
+        \`1px\`,
+        \`rgba(\${black}, 0.1)\`
+      ],
+      \\"navbarDropdownBoxedShadow\\"
+    );
+  const tableCellBorderWidth =
+    overriding.tableCellBorderWidth ||
+    evaluate([\`0\`, \`0\`, \`1px\`], \\"tableCellBorderWidth\\");
+  const tableCellPadding =
+    overriding.tableCellPadding ||
+    evaluate([\`0.5em\`, \`0.75em\`], \\"tableCellPadding\\");
+  const mixedContentWithString =
+    overriding.mixedContentWithString ||
+    evaluate([\`5px\`, \`solid\`, \`border\`], \\"mixedContentWithString\\");
+  return {
+    navbarDropdownOffset,
+    navbarBottomBoxShadowSize,
+    navbarDropdownBoxedShadow,
+    tableCellBorderWidth,
+    tableCellPadding,
+    mixedContentWithString
+  };
+};
+"
+`;
+
+exports[`boxshadow 1`] = `
+"export type Methods = \\"color\\" | \\"evaluate\\";
+export type InjectedMethods = Record<
+  Methods,
+  (val: string | string[], src?: string) => string
+>;
+
+export type BulmaVars = \\"black\\" | \\"inputShadow\\";
+export type BulmaTheme = Record<BulmaVars, string>;
+
+export const makeBasicTheme = ({ color, evaluate }: InjectedMethods) => (
+  overriding: Partial<BulmaTheme>
+): BulmaTheme => {
+  const black = overriding.black || color(\`hsl(0%, 0%, \${percent})\`);
+  const inputShadow =
+    overriding.inputShadow ||
+    evaluate(
+      [\`inset\`, \`0\`, \`1px\`, \`2px\`, \`rgba(\${black}, 0.1)\`],
+      \\"inputShadow\\"
+    );
+  return {
+    black,
+    inputShadow
+  };
+};
+"
+`;
+
+exports[`bulma variables parsing - with formatting 1`] = `
+"export type Methods = \\"color\\" | \\"evaluate\\";
+export type InjectedMethods = Record<
+  Methods,
+  (val: string | string[], src?: string) => string
+>;
+
+export type BulmaVars =
+  | \\"black\\"
+  | \\"blackBis\\"
+  | \\"blackTer\\"
+  | \\"greyDarker\\"
+  | \\"familySansSerif\\"
+  | \\"familyMonospace\\"
+  | \\"renderMode\\"
+  | \\"size_1\\"
+  | \\"size_2\\"
+  | \\"gap\\"
+  | \\"camelCasedGap\\"
+  | \\"tablet\\"
+  | \\"desktop\\"
+  | \\"widescreen\\"
+  | \\"fullhd\\"
+  | \\"easing\\"
+  | \\"radiusSmall\\"
+  | \\"radius\\";
+export type BulmaTheme = Record<BulmaVars, string> & { weightLight: number } & {
+  weightNormal: number;
+} & { widescreenEnabled: boolean } & { fullhdEnabled: boolean } & {
+  variableColumns: boolean;
+} & {
+  colors: Record<
+    | \\"white\\"
+    | \\"black\\"
+    | \\"light\\"
+    | \\"lightInvert\\"
+    | \\"dark\\"
+    | \\"darkInvert\\"
+    | \\"primary\\"
+    | \\"primaryInvert\\"
+    | \\"link\\"
+    | \\"linkInvert\\"
+    | \\"info\\"
+    | \\"infoInvert\\"
+    | \\"success\\"
+    | \\"successInvert\\"
+    | \\"warning\\"
+    | \\"warningInvert\\"
+    | \\"danger\\"
+    | \\"dangerInvert\\",
+    string
+  >;
+} & {
+  shades: Record<
+    | \\"blackBis\\"
+    | \\"blackTer\\"
+    | \\"greyDarker\\"
+    | \\"greyDark\\"
+    | \\"grey\\"
+    | \\"greyLight\\"
+    | \\"greyLighter\\"
+    | \\"whiteTer\\"
+    | \\"whiteBis\\",
+    string
+  >;
+};
+
+export const makeBasicTheme = ({ color, evaluate }: InjectedMethods) => (
+  overriding: Partial<BulmaTheme>
+): BulmaTheme => {
+  const black = overriding.black || color(\`hsl(0, 0%, 4%)\`);
+  const blackBis = overriding.blackBis || color(\`hsl(0, 0%, 7%)\`);
+  const blackTer = overriding.blackTer || color(\`hsl(0, 0%, 14%)\`);
+  const greyDarker = overriding.greyDarker || color(\`hsl(0, 0%, 21%)\`);
+  const familySansSerif =
+    overriding.familySansSerif ||
+    evaluate(
+      [
+        \`BlinkMacSystemFont\`,
+        \`,\`,
+        \`-apple-system\`,
+        \`,\`,
+        \`\\"Segoe UI\\"\`,
+        \`,\`,
+        \`\\"Roboto\\"\`,
+        \`,\`,
+        \`\\"Oxygen\\"\`,
+        \`,\`,
+        \`\\"Ubuntu\\"\`,
+        \`,\`,
+        \`\\"Cantarell\\"\`,
+        \`,\`,
+        \`\\"Fira Sans\\"\`,
+        \`,\`,
+        \`\\"Droid Sans\\"\`,
+        \`,\`,
+        \`\\"Helvetica Neue\\"\`,
+        \`,\`,
+        \`\\"Helvetica\\"\`,
+        \`,\`,
+        \`\\"Arial\\"\`,
+        \`,\`,
+        \`sans-serif\`
+      ],
+      \\"familySansSerif\\"
+    );
+  const familyMonospace = overriding.familyMonospace || \\"monospace\\";
+  const renderMode = overriding.renderMode || \\"optimizeLegibility\\";
+  const size_1 = overriding.size_1 || \\"3rem\\";
+  const size_2 = overriding.size_2 || \\"2.5rem\\";
+  const weightLight = overriding.weightLight || 300;
+  const weightNormal = overriding.weightNormal || 400;
+  const gap = overriding.gap || \\"64px\\";
+  const camelCasedGap = overriding.camelCasedGap || \\"100px\\";
+  const tablet = overriding.tablet || \\"769px\\";
+  const desktop =
+    overriding.desktop || evaluate([\`960px\`, \`+\`, \`(2 * \${gap})\`], \\"desktop\\");
+  const widescreen =
+    overriding.widescreen ||
+    evaluate([\`1152px\`, \`+\`, \`(2 * \${camelCasedGap})\`], \\"widescreen\\");
+  const widescreenEnabled = overriding.widescreenEnabled || true;
+  const fullhd =
+    overriding.fullhd || evaluate([\`1344px\`, \`+\`, \`(2 * \${gap})\`], \\"fullhd\\");
+  const fullhdEnabled = overriding.fullhdEnabled || true;
+  const easing = overriding.easing || \\"ease-out\\";
+  const radiusSmall = overriding.radiusSmall || \\"2px\\";
+  const radius = overriding.radius || \\"4px\\";
+  const variableColumns = overriding.variableColumns || true;
+  const colors = {
+    white,
+    black,
+    light,
+    lightInvert,
+    dark,
+    darkInvert,
+    primary,
+    primaryInvert,
+    link,
+    linkInvert,
+    info,
+    infoInvert,
+    success,
+    successInvert,
+    warning,
+    warningInvert,
+    danger,
+    dangerInvert
+  };
+  const shades = {
+    blackBis,
+    blackTer,
+    greyDarker,
+    greyDark,
+    grey,
+    greyLight,
+    greyLighter,
+    whiteTer,
+    whiteBis
+  };
+  return {
+    black,
+    blackBis,
+    blackTer,
+    greyDarker,
+    familySansSerif,
+    familyMonospace,
+    renderMode,
+    size_1,
+    size_2,
+    weightLight,
+    weightNormal,
+    gap,
+    camelCasedGap,
+    tablet,
+    desktop,
+    widescreen,
+    widescreenEnabled,
+    fullhd,
+    fullhdEnabled,
+    easing,
+    radiusSmall,
+    radius,
+    variableColumns,
+    colors,
+    shades
+  };
+};
+"
+`;
+
+exports[`bulma variables parsing - without formatting 1`] = `
+"
+    
+    export type Methods = \\"color\\"|\\"evaluate\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"black\\"|\\"blackBis\\"|\\"blackTer\\"|\\"greyDarker\\"|\\"familySansSerif\\"|\\"familyMonospace\\"|\\"renderMode\\"|\\"size_1\\"|\\"size_2\\"|\\"gap\\"|\\"camelCasedGap\\"|\\"tablet\\"|\\"desktop\\"|\\"widescreen\\"|\\"fullhd\\"|\\"easing\\"|\\"radiusSmall\\"|\\"radius\\"
+    export type BulmaTheme = Record<BulmaVars, string>&{weightLight: number}&{weightNormal: number}&{widescreenEnabled: boolean}&{fullhdEnabled: boolean}&{variableColumns: boolean}&{colors: Record<\\"white\\"|\\"black\\"|\\"light\\"|\\"lightInvert\\"|\\"dark\\"|\\"darkInvert\\"|\\"primary\\"|\\"primaryInvert\\"|\\"link\\"|\\"linkInvert\\"|\\"info\\"|\\"infoInvert\\"|\\"success\\"|\\"successInvert\\"|\\"warning\\"|\\"warningInvert\\"|\\"danger\\"|\\"dangerInvert\\", string>}&{shades: Record<\\"blackBis\\"|\\"blackTer\\"|\\"greyDarker\\"|\\"greyDark\\"|\\"grey\\"|\\"greyLight\\"|\\"greyLighter\\"|\\"whiteTer\\"|\\"whiteBis\\", string>}
+
+    export const makeBasicTheme = ({color,evaluate}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const black = overriding.black || color(\`hsl(0, 0%, 4%)\`)
+const blackBis = overriding.blackBis || color(\`hsl(0, 0%, 7%)\`)
+const blackTer = overriding.blackTer || color(\`hsl(0, 0%, 14%)\`)
+const greyDarker = overriding.greyDarker || color(\`hsl(0, 0%, 21%)\`)
+const familySansSerif = overriding.familySansSerif || evaluate([\`BlinkMacSystemFont\`,\`,\`,\`-apple-system\`,\`,\`,\`\\"Segoe UI\\"\`,\`,\`,\`\\"Roboto\\"\`,\`,\`,\`\\"Oxygen\\"\`,\`,\`,\`\\"Ubuntu\\"\`,\`,\`,\`\\"Cantarell\\"\`,\`,\`,\`\\"Fira Sans\\"\`,\`,\`,\`\\"Droid Sans\\"\`,\`,\`,\`\\"Helvetica Neue\\"\`,\`,\`,\`\\"Helvetica\\"\`,\`,\`,\`\\"Arial\\"\`,\`,\`,\`sans-serif\`], 'familySansSerif')
+const familyMonospace = overriding.familyMonospace || \\"monospace\\"
+const renderMode = overriding.renderMode || \\"optimizeLegibility\\"
+const size_1 = overriding.size_1 || \\"3rem\\"
+const size_2 = overriding.size_2 || \\"2.5rem\\"
+const weightLight = overriding.weightLight || 300
+const weightNormal = overriding.weightNormal || 400
+const gap = overriding.gap || \\"64px\\"
+const camelCasedGap = overriding.camelCasedGap || \\"100px\\"
+const tablet = overriding.tablet || \\"769px\\"
+const desktop = overriding.desktop || evaluate([\`960px\`,\`+\`,\`(2 * \${gap})\`], 'desktop')
+const widescreen = overriding.widescreen || evaluate([\`1152px\`,\`+\`,\`(2 * \${camelCasedGap})\`], 'widescreen')
+const widescreenEnabled = overriding.widescreenEnabled || true
+const fullhd = overriding.fullhd || evaluate([\`1344px\`,\`+\`,\`(2 * \${gap})\`], 'fullhd')
+const fullhdEnabled = overriding.fullhdEnabled || true
+const easing = overriding.easing || \\"ease-out\\"
+const radiusSmall = overriding.radiusSmall || \\"2px\\"
+const radius = overriding.radius || \\"4px\\"
+const variableColumns = overriding.variableColumns || true
+const colors = {white,black,light,lightInvert,dark,darkInvert,primary,primaryInvert,link,linkInvert,info,infoInvert,success,successInvert,warning,warningInvert,danger,dangerInvert}
+const shades = {blackBis,blackTer,greyDarker,greyDark,grey,greyLight,greyLighter,whiteTer,whiteBis}
+      return {
+        black,
+blackBis,
+blackTer,
+greyDarker,
+familySansSerif,
+familyMonospace,
+renderMode,
+size_1,
+size_2,
+weightLight,
+weightNormal,
+gap,
+camelCasedGap,
+tablet,
+desktop,
+widescreen,
+widescreenEnabled,
+fullhd,
+fullhdEnabled,
+easing,
+radiusSmall,
+radius,
+variableColumns,
+colors,
+shades
+      }
+    }
+  "
+`;
+
+exports[`color - rgba 1`] = `
+"
+    
+    export type Methods = \\"color\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"buttonFocusBoxShadowColor\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = ({color}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const buttonFocusBoxShadowColor = overriding.buttonFocusBoxShadowColor || color(\`rgba(\${link}, 0.25)\`)
+      return {
+        buttonFocusBoxShadowColor
+      }
+    }
+  "
+`;
+
+exports[`export correct types 1`] = `
+"export type BulmaVars = \\"white\\" | \\"colorType\\";
+export type BulmaTheme = Record<BulmaVars, string> & { size_1: number } & {
+  colorHashMap: Record<
+    | \\"white\\"
+    | \\"black\\"
+    | \\"light\\"
+    | \\"lightInvert\\"
+    | \\"dark\\"
+    | \\"darkInvert\\"
+    | \\"primary\\"
+    | \\"primaryInvert\\"
+    | \\"link\\"
+    | \\"linkInvert\\"
+    | \\"info\\"
+    | \\"infoInvert\\"
+    | \\"success\\"
+    | \\"successInvert\\"
+    | \\"warning\\"
+    | \\"warningInvert\\"
+    | \\"danger\\"
+    | \\"dangerInvert\\",
+    string
+  >;
+} & { sizesArray: Array<number> } & { booleanType: boolean } & {
+  numberType: number;
+};
+
+export const makeBasicTheme = () => (
+  overriding: Partial<BulmaTheme>
+): BulmaTheme => {
+  const size_1 = overriding.size_1 || 1;
+  const white = overriding.white || \\"#FFEEDD\\";
+  const colorHashMap = {
+    white,
+    black,
+    light,
+    lightInvert,
+    dark,
+    darkInvert,
+    primary,
+    primaryInvert,
+    link,
+    linkInvert,
+    info,
+    infoInvert,
+    success,
+    successInvert,
+    warning,
+    warningInvert,
+    danger,
+    dangerInvert
+  };
+  const sizesArray = [size_1, size_2, size_3, size_4, size_5, size_6, size_7];
+  const booleanType = overriding.booleanType || true;
+  const numberType = overriding.numberType || 1;
+  const colorType = overriding.colorType || \\"#FFEEDD\\";
+  return {
+    size_1,
+    white,
+    colorHashMap,
+    sizesArray,
+    booleanType,
+    numberType,
+    colorType
+  };
+};
+"
+`;
+
+exports[`expression 1`] = `
+"
+    
+    export type Methods = \\"evaluate\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"desktop\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = ({evaluate}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const desktop = overriding.desktop || evaluate([\`960px\`,\`+\`,\`(2 * \${gap_1} + \${gap_2})\`,\`+\`,\`\${gap_3}\`,\`+\`,\`\${gap_4}\`], 'desktop')
+      return {
+        desktop
+      }
+    }
+  "
+`;
+
+exports[`external function to call 1`] = `
+"
+    
+    export type Methods = \\"findColor\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"colorVar\\"|\\"percent\\"|\\"valueFromExternalFunction\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = ({findColor}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const colorVar = overriding.colorVar || \\"#DDEEFF\\"
+const percent = overriding.percent || \\"10%\\"
+const valueFromExternalFunction = overriding.valueFromExternalFunction || findColor(colorVar,percent)
+      return {
+        colorVar,
+percent,
+valueFromExternalFunction
+      }
+    }
+  "
+`;
+
+exports[`font 1`] = `
+"
+    
+    export type Methods = \\"evaluate\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"familySansSerif\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = ({evaluate}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const familySansSerif = overriding.familySansSerif || evaluate([\`BlinkMacSystemFont\`,\`,\`,\`-apple-system\`,\`,\`,\`\\"Segoe UI\\"\`,\`,\`,\`\\"Roboto\\"\`,\`,\`,\`\\"Oxygen\\"\`,\`,\`,\`\\"Ubuntu\\"\`,\`,\`,\`\\"Cantarell\\"\`,\`,\`,\`\\"Fira Sans\\"\`,\`,\`,\`\\"Droid Sans\\"\`,\`,\`,\`\\"Helvetica Neue\\"\`,\`,\`,\`\\"Helvetica\\"\`,\`,\`,\`\\"Arial\\"\`,\`,\`,\`sans-serif\`], 'familySansSerif')
+      return {
+        familySansSerif
+      }
+    }
+  "
+`;
+
+exports[`ident - bool 1`] = `
+"
+    
+    
+    
+  
+    
+    export type BulmaTheme = {fullhdEnabled: boolean}
+
+    export const makeBasicTheme = () => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const fullhdEnabled = overriding.fullhdEnabled || true
+      return {
+        fullhdEnabled
+      }
+    }
+  "
+`;
+
+exports[`interpolation within function 1`] = `
+"
+    
+    
+    
+  
+    export type BulmaVars = \\"controlPaddingVertical\\"|\\"controlPaddingHorizontal\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = () => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const controlPaddingVertical = overriding.controlPaddingVertical || \`calc(0.375em - \${controlBorderWidth})\`
+const controlPaddingHorizontal = overriding.controlPaddingHorizontal || \`calc(0.625em - \${controlBorderWidth})\`
+      return {
+        controlPaddingVertical,
+controlPaddingHorizontal
+      }
+    }
+  "
+`;
+
+exports[`loading all sass files 1`] = `
+"export type BulmaVars = \\"strongColor\\" | \\"strongWeight\\";
+export type BulmaTheme = Record<BulmaVars, string> & { someVar: number } & {
+  someVar2: number;
+};
+
+export const makeBasicTheme = () => (
+  overriding: Partial<BulmaTheme>
+): BulmaTheme => {
+  const someVar = overriding.someVar || 1;
+  const someVar2 = overriding.someVar2 || 1;
+  const strongColor = overriding.strongColor || textStrong;
+  const strongWeight = overriding.strongWeight || weightBold;
+  return {
+    someVar,
+    someVar2,
+    strongColor,
+    strongWeight
+  };
+};
+"
+`;
+
+exports[`make closure with simple vars 1`] = `
+"
+    
+    
+    
+  
+    export type BulmaVars = \\"colorVar\\"|\\"colorRef\\"|\\"refOfRef\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = () => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const colorVar = overriding.colorVar || \\"#DDEEFF\\"
+const colorRef = overriding.colorRef || colorVar
+const refOfRef = overriding.refOfRef || colorRef
+      return {
+        colorVar,
+colorRef,
+refOfRef
+      }
+    }
+  "
+`;
+
+exports[`merge color maps 1`] = `
+"
+    
+    
+    
+  
+    
+    export type BulmaTheme = {shades: Record<\\"blackBis\\"|\\"blackTer\\"|\\"greyDarker\\"|\\"greyDark\\"|\\"grey\\"|\\"greyLight\\"|\\"greyLighter\\"|\\"whiteTer\\"|\\"whiteBis\\", string>}&{colors: Record<\\"white\\"|\\"black\\"|\\"light\\"|\\"lightInvert\\"|\\"dark\\"|\\"darkInvert\\"|\\"primary\\"|\\"primaryInvert\\"|\\"link\\"|\\"linkInvert\\"|\\"info\\"|\\"infoInvert\\"|\\"success\\"|\\"successInvert\\"|\\"warning\\"|\\"warningInvert\\"|\\"danger\\"|\\"dangerInvert\\", string>}
+
+    export const makeBasicTheme = () => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const shades = {blackBis,blackTer,greyDarker,greyDark,grey,greyLight,greyLighter,whiteTer,whiteBis}
+const colors = {white,black,light,lightInvert,dark,darkInvert,primary,primaryInvert,link,linkInvert,info,infoInvert,success,successInvert,warning,warningInvert,danger,dangerInvert}
+      return {
+        shades,
+colors
+      }
+    }
+  "
+`;
+
+exports[`resolve array of numbers 1`] = `
+"export type BulmaTheme = { dimensions: Array<number> };
+
+export const makeBasicTheme = () => (
+  overriding: Partial<BulmaTheme>
+): BulmaTheme => {
+  const dimensions = [16, 24, 32, 48, 64, 96, 128];
+  return {
+    dimensions
+  };
+};
+"
+`;
+
+exports[`resolve color functions - hsl - with 2 variables 1`] = `
+"
+    
+    export type Methods = \\"color\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"percentA\\"|\\"percentB\\"|\\"callingHsl\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = ({color}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const percentA = overriding.percentA || \\"10%\\"
+const percentB = overriding.percentB || \\"10%\\"
+const callingHsl = overriding.callingHsl || color(\`hsl(0%, \${percentA}, \${percentB})\`)
+      return {
+        percentA,
+percentB,
+callingHsl
+      }
+    }
+  "
+`;
+
+exports[`resolve color functions - hsl 1`] = `
+"
+    
+    export type Methods = \\"color\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"percent\\"|\\"callingHsl\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = ({color}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const percent = overriding.percent || \\"10%\\"
+const callingHsl = overriding.callingHsl || color(\`hsl(0%, 0%, \${percent})\`)
+      return {
+        percent,
+callingHsl
+      }
+    }
+  "
+`;
+
+exports[`resolve hsl color with substitution 1`] = `
+"
+    
+    export type Methods = \\"color\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"percent\\"|\\"callingHsl\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = ({color}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const percent = overriding.percent || \\"10%\\"
+const callingHsl = overriding.callingHsl || color(\`hsl(0%, 0%, \${percent})\`)
+      return {
+        percent,
+callingHsl
+      }
+    }
+  "
+`;
+
+exports[`test comments 1`] = `""`;
+
+exports[`test sizes 1`] = `
+"
+    
+    
+    
+  
+    export type BulmaVars = \\"size_1\\"|\\"size_2\\"
+    export type BulmaTheme = Record<BulmaVars, string>&{sizesArray: Array<string>}
+
+    export const makeBasicTheme = () => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const size_1 = overriding.size_1 || \\"3rem\\"
+const size_2 = overriding.size_2 || \\"2.5rem\\"
+const sizesArray = [size_1,size_2]
+      return {
+        size_1,
+size_2,
+sizesArray
+      }
+    }
+  "
+`;
+
+exports[`test sizes from bulma - parsing array of values 1`] = `
+"export type BulmaTheme = { sizes: Array<string> };
+
+export const makeBasicTheme = () => (
+  overriding: Partial<BulmaTheme>
+): BulmaTheme => {
+  const sizes = [size_1, size_2, size_3, size_4, size_5, size_6, size_7];
+  return {
+    sizes
+  };
+};
+"
+`;
+
+exports[`testing order of deps - not sure why it is failing 1`] = `
+"
+    
+    export type Methods = \\"findColorInvert\\"
+    export type InjectedMethods = 
+      Record<Methods, (val: string | string[], src?: string) => string>
+    
+  
+    export type BulmaVars = \\"red\\"|\\"redInvert\\"|\\"dangerInvert\\"
+    export type BulmaTheme = Record<BulmaVars, string>
+
+    export const makeBasicTheme = ({findColorInvert}: InjectedMethods) => (overriding: Partial<BulmaTheme>): BulmaTheme => {
+      const red = overriding.red || \\"#DDEEFF\\"
+const redInvert = overriding.redInvert || findColorInvert(red)
+const dangerInvert = overriding.dangerInvert || redInvert
+      return {
+        red,
+redInvert,
+dangerInvert
+      }
+    }
+  "
+`;
+
+exports[`traversing to get correct non string type 1`] = `
+"export type BulmaTheme = { numberValue: number } & {
+  numberReferenceA: number;
+} & { numberReferenceB: number } & { numberReferenceC: number };
+
+export const makeBasicTheme = () => (
+  overriding: Partial<BulmaTheme>
+): BulmaTheme => {
+  const numberValue = overriding.numberValue || 1;
+  const numberReferenceA = overriding.numberReferenceA || numberValue;
+  const numberReferenceB = overriding.numberReferenceB || numberReferenceA;
+  const numberReferenceC = overriding.numberReferenceC || numberReferenceB;
+  return {
+    numberValue,
+    numberReferenceA,
+    numberReferenceB,
+    numberReferenceC
+  };
+};
+"
+`;
