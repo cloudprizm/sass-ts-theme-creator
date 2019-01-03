@@ -3,9 +3,6 @@ import { percentToString, toHexColor } from './parse-variable-type'
 import { parseSass, parse } from './parse-sass'
 import { getAST } from './sass-ast'
 import { makeFunction } from './sass-to-typescript-template'
-import decamelize from 'decamelize'
-import camelCase from 'camel-case'
-import { map } from 'fp-ts/lib/Record'
 
 // fixtures - required by bulma
 const simpleColor = '$colorVar: #DDEEFF'
