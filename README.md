@@ -1,4 +1,5 @@
 `sass-ts-theme-creator`
+===
 
 Extracting variables from `sass` files and provide `typescript` function with possibility to override. It is a bit different approach, as there is no manual effort needed, besides creating entry point for sass files. 
 Huge win is that it keeps relation between variables so overriding one variable it will affect all related, it is not resolved by `node-sass` automatically but on the javascript side, so it works well with node and the web making it single source of truth.
