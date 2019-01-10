@@ -6,6 +6,8 @@ Huge win is that it keeps relation between variables so overriding one variable 
 
 Real world example [`@hungry/bulma-theme`](https://github.com/hungry-consulting/bulma-theme).
 
+[Docs](https://hungry-consulting.github.io/sass-ts-theme-creator/)
+
 ### How it works
 * `theming` function
 ```ts
