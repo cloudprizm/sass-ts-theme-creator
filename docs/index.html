@@ -1,0 +1,473 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@hungry/sass-ts-theme-creator</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@hungry/sass-ts-theme-creator</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @hungry/sass-ts-theme-creator</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="sass-ts-theme-creator"><code>sass-ts-theme-creator</code></h1>
+				<p>Extracting variables from <code>sass</code> files and provide <code>typescript</code> function with possibility to override. It is a bit different approach, as there is no manual effort needed, besides creating entry point for sass files.
+				Huge win is that it keeps relation between variables so overriding one variable it will affect all related, it is not resolved by <code>node-sass</code> automatically but on the javascript side, so it works well with node and the web making it single source of truth.</p>
+				<p>Real world example <a href="https://github.com/hungry-consulting/bulma-theme"><code>@hungry/bulma-theme</code></a>.</p>
+				<h3 id="how-it-works">How it works</h3>
+				<ul>
+					<li><code>theming</code> function<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">theme</span>(<span class="hljs-params">overridings = {}</span>) </span>{
+<span class="hljs-keyword">const</span> black = overridings.black || <span class="hljs-string">'#000000'</span>
+<span class="hljs-keyword">return</span> {
+  black
+}
+}
+<span class="hljs-keyword">const</span> myTheme = theme()</code></pre>
+					Such theme can be used with <code>webpack-sass-var-loader</code> and <code>styled-component</code> theme.</li>
+				</ul>
+				<h4 id="with-more-details">with more details</h4>
+				<ul>
+					<li>parse all <code>sass</code> files from entry point and extracting all variables</li>
+					<li>variables from <code>sass</code> files are sorted to keep correct relation between them, i.e. if something rely on <code>black</code> will be defined latter as <code>black</code> dependency (variables are <code>topologically</code> sorted by theirs <code>dependencies</code>) - so there is no any issue with <code>hoisting</code></li>
+					<li>all expressions and values which are not primitives are defined as functions, to make correct overriding possible, so if:<ul>
+							<li>if there is a <code>hsl</code> color, it will be resolved in runtime and wrapped by <code>color</code> function, </li>
+							<li>if there is an <code>addition</code> or <code>substraction</code> or any other <code>math operation</code> it will be presented as function as well. </li>
+							<li>if you will be using some custom functions, you are in charge to define them when running theme. There are couple of hardcoded methods, such as <code>evaluate</code>, <code>color</code>. </li>
+						</ul>
+					</li>
+					<li>resolvers of such functions, have <code>InjectedMethods</code> type and this type is auto-generated from <code>theme</code> file - so there is no chance to miss any implementation.</li>
+				</ul>
+				<h3 id="why">Why</h3>
+				<ul>
+					<li>correctness - what is exported as a variable, is presented as <a href="https://www.typescriptlang.org/docs/handbook/advanced-types.html"><code>union</code></a> type, so there is no room for any mistakes related to variables not in sync</li>
+					<li>lazy evaluation of variables - no <code>node-sass</code> involved in evaluation</li>
+					<li>casting all sass values to typescript types, also arrays and theirs content, so string[], number[] will be casted correctly</li>
+					<li>play nicely with <code>bulma</code> </li>
+					<li>existing solution does not give traversing many files from default, basically you are in charge what is exported, but here, importing <code>sass</code> files will do auto export all of variables</li>
+					<li>all generated theme files can be <code>chained</code> to create bigger theme</li>
+					<li>there is no clean way to handle sass and styled-component and all available solution requires too much effort when you want to use something which is well defined</li>
+					<li>there is a lot of sass components out there - going piece by piece and editing manually of vars or gathering them in one file was too much time consuming</li>
+				</ul>
+				<h4 id="personal-wishes">Personal wishes</h4>
+				<ul>
+					<li>I wanted to have something which help me port components from sass world easily</li>
+					<li>I wanted something which will provide easy overridings on compilation level (compile bulma with all variables defined without breaking rules) - when going on prod - as well as in dev environment and further for theming styled components function</li>
+					<li>all libraries with css typings assume that you have a green field project and starting css from scratch or you are porting everything to have this flavour - mine main goal was to improve adoption what is already there (lots of great bulma components) and if needed apply any changes without any effort (like updates) and manual work which is bug prone and pricey</li>
+				</ul>
+				<h3 id="examples">Examples</h3>
+				<h4 id="resolving-box-shadow">Resolving <code>box-shadow</code></h4>
+				<pre><code class="language-ts">  <span class="hljs-comment">// INPUT</span>
+  <span class="hljs-keyword">const</span> boxShadow = <span class="hljs-string">`
+    $black: hsl(0%, 0%, $percent)
+    $input-shadow: inset 0 1px 2px rgba($black, 0.1) !default
+  `</span>
+  <span class="hljs-keyword">const</span> themeFunction = sassToTypescript(boxShadow)
+
+  <span class="hljs-comment">// OUTPUT from themeFunction</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Methods = <span class="hljs-string">"color"</span> | <span class="hljs-string">"evaluate"</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> InjectedMethods = Record&lt;
+    Methods,
+    <span class="hljs-function">(<span class="hljs-params">val: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[], src?: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>
+  &gt;;
+
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> BulmaVars = <span class="hljs-string">"black"</span> | <span class="hljs-string">"inputShadow"</span>;
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> BulmaTheme = Record&lt;BulmaVars, <span class="hljs-built_in">string</span>&gt;;
+
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> makeBasicTheme = <span class="hljs-function">(<span class="hljs-params">{ color, evaluate }: InjectedMethods</span>) =&gt;</span> (
+    overriding: Partial&lt;BulmaTheme&gt;
+  ): <span class="hljs-function"><span class="hljs-params">BulmaTheme</span> =&gt;</span> {
+    <span class="hljs-comment">// default color value and ability to override it from external input</span>
+    <span class="hljs-keyword">const</span> black = overriding.black || color(<span class="hljs-string">`hsl(0%, 0%, <span class="hljs-subst">${percent}</span>)`</span>);
+    <span class="hljs-comment">// as inputShadow rely on black, is defined below black and as is not simple</span>
+    <span class="hljs-comment">// is wrapped by evaluate function, this is normalized version of it,</span>
+    <span class="hljs-comment">// so in this case join of array would be enough to get correct value</span>
+    <span class="hljs-comment">// it is required as rgba has to be resolved to correct value</span>
+    <span class="hljs-keyword">const</span> inputShadow =
+      overriding.inputShadow ||
+      evaluate([<span class="hljs-string">`inset`</span>, <span class="hljs-string">`0`</span>, <span class="hljs-string">`1px`</span>, <span class="hljs-string">`2px`</span>, <span class="hljs-string">`rgba(<span class="hljs-subst">${black}</span>, 0.1)`</span>], <span class="hljs-string">"inputShadow"</span>);
+
+    <span class="hljs-keyword">return</span> {
+      black,
+      inputShadow
+    };
+  };</code></pre>
+				<p>if you are interested how particular type is casted to typescript, <code>src/parse.test.ts</code> file and <code>src/__snapshots__</code>.</p>
+				<h3 id="real-example">Real example</h3>
+				<h3 id="resolving-bulma-theme">Resolving <code>Bulma</code> theme</h3>
+				<h4 id="step-1-defining-entry-point-for-sass-files">Step 1 - Defining entry point for <code>sass</code> files</h4>
+				<ul>
+					<li>extracting variables from many files<pre><code class="language-sass">// entry point
+// import files with variables to include src/variables.sass
+@import &#39;bulma/sass/utilities/_all.sass&#39;
+@import &#39;bulma/sass/base/generic.sass&#39;
+@import &#39;bulma/sass/elements/_all.sass&#39;
+@import &#39;bulma/sass/components/_all.sass&#39;
+@import &#39;bulma/sass/grid/_all.sass&#39;
+@import &#39;bulma/sass/layout/_all.sass&#39;</code></pre>
+					</li>
+				</ul>
+				<h4 id="step-2-defining-extracting-script-and-saving-theme-to-file">Step 2 - Defining extracting script and saving theme to file</h4>
+				<pre><code class="language-ts"><span class="hljs-comment">// example script - such script can be used in postinstall step</span>
+<span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>
+<span class="hljs-keyword">import</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>
+<span class="hljs-keyword">import</span> findNodeModules <span class="hljs-keyword">from</span> <span class="hljs-string">'find-node-modules'</span>
+
+<span class="hljs-keyword">import</span> { sassToTypescript, parseFile } <span class="hljs-keyword">from</span> <span class="hljs-string">'@component/sass-ts-theme-creator'</span>
+
+<span class="hljs-keyword">const</span> withinSRC = <span class="hljs-function">(<span class="hljs-params">file</span>) =&gt;</span> path.resolve(__dirname, file)
+
+<span class="hljs-comment">// same configuration as with node-sass</span>
+<span class="hljs-keyword">const</span> sassVars = parseFile({
+  file: withinSRC(<span class="hljs-string">'./variables.sass'</span>), <span class="hljs-comment">// ./src/variables.sass</span>
+  includePaths: findNodeModules({ cwd: __dirname }).map(withinSRC)
+})
+
+fs.writeFileSync(<span class="hljs-string">'default.theme.ts'</span>, sassVars)</code></pre>
+				<h4 id="output-generated-theme-partial-">Output - generated theme (partial)</h4>
+				<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Methods = <span class="hljs-string">"color"</span> | <span class="hljs-string">"evaluate"</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> InjectedMethods = Record&lt;Methods, <span class="hljs-function">(<span class="hljs-params">val: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>&gt;;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> BulmaVars =
+  | <span class="hljs-string">"black"</span>
+  | <span class="hljs-string">"blackBis"</span>
+  | <span class="hljs-string">"blackTer"</span>
+  | <span class="hljs-string">"greyDarker"</span>
+  | <span class="hljs-string">"familySansSerif"</span>
+  | <span class="hljs-string">"familyMonospace"</span>
+  | <span class="hljs-string">"renderMode"</span>
+  | <span class="hljs-string">"size1"</span>
+  | <span class="hljs-string">"size2"</span>
+  | <span class="hljs-string">"gap"</span>
+  | <span class="hljs-string">"camelCasedGap"</span>
+  | <span class="hljs-string">"tablet"</span>
+  | <span class="hljs-string">"desktop"</span>
+  | <span class="hljs-string">"widescreen"</span>
+  | <span class="hljs-string">"fullhd"</span>
+  | <span class="hljs-string">"easing"</span>
+  | <span class="hljs-string">"radiusSmall"</span>
+  | <span class="hljs-string">"radius"</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> BulmaTheme = Record&lt;BulmaVars, <span class="hljs-built_in">string</span>&gt; &amp; { weightLight: <span class="hljs-built_in">number</span> } &amp; {
+  weightNormal: <span class="hljs-built_in">number</span>;
+} &amp; { widescreenEnabled: <span class="hljs-built_in">boolean</span> } &amp; { fullhdEnabled: <span class="hljs-built_in">boolean</span> } &amp; {
+  variableColumns: <span class="hljs-built_in">boolean</span>;
+} &amp; {
+  colors: Record&lt;
+    | <span class="hljs-string">"white"</span>
+    | <span class="hljs-string">"black"</span>
+    | <span class="hljs-string">"light"</span>
+    | <span class="hljs-string">"lightInvert"</span>
+    | <span class="hljs-string">"dark"</span>
+    | <span class="hljs-string">"darkInvert"</span>
+    | <span class="hljs-string">"primary"</span>
+    | <span class="hljs-string">"primaryInvert"</span>
+    | <span class="hljs-string">"link"</span>
+    | <span class="hljs-string">"linkInvert"</span>
+    | <span class="hljs-string">"info"</span>
+    | <span class="hljs-string">"infoInvert"</span>
+    | <span class="hljs-string">"success"</span>
+    | <span class="hljs-string">"successInvert"</span>
+    | <span class="hljs-string">"warning"</span>
+    | <span class="hljs-string">"warningInvert"</span>
+    | <span class="hljs-string">"danger"</span>
+    | <span class="hljs-string">"dangerInvert"</span>,
+    <span class="hljs-built_in">string</span>
+  &gt;;
+} &amp; {
+  shades: Record&lt;
+    | <span class="hljs-string">"blackBis"</span>
+    | <span class="hljs-string">"blackTer"</span>
+    | <span class="hljs-string">"greyDarker"</span>
+    | <span class="hljs-string">"greyDark"</span>
+    | <span class="hljs-string">"grey"</span>
+    | <span class="hljs-string">"greyLight"</span>
+    | <span class="hljs-string">"greyLighter"</span>
+    | <span class="hljs-string">"whiteTer"</span>
+    | <span class="hljs-string">"whiteBis"</span>,
+    <span class="hljs-built_in">string</span>
+  &gt;;
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> makeBasicTheme = <span class="hljs-function">(<span class="hljs-params">{ color, evaluate }: InjectedMethods</span>) =&gt;</span> (
+  overriding: Partial&lt;BulmaTheme&gt;
+): <span class="hljs-function"><span class="hljs-params">BulmaTheme</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> black = overriding.black || color(<span class="hljs-string">`hsl(0,0%,4%)`</span>);
+  <span class="hljs-keyword">const</span> blackBis = overriding.blackBis || color(<span class="hljs-string">`hsl(0,0%,7%)`</span>);
+  <span class="hljs-keyword">const</span> blackTer = overriding.blackTer || color(<span class="hljs-string">`hsl(0,0%,14%)`</span>);
+  <span class="hljs-keyword">const</span> greyDarker = overriding.greyDarker || color(<span class="hljs-string">`hsl(0,0%,21%)`</span>);
+  <span class="hljs-keyword">const</span> familySansSerif =
+    overriding.familySansSerif ||
+    <span class="hljs-string">"BlinkMacSystemFont,-apple-system,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue','Helvetica','Arial',sans-serif"</span>;
+  <span class="hljs-keyword">const</span> familyMonospace = overriding.familyMonospace || <span class="hljs-string">"monospace"</span>;
+  <span class="hljs-keyword">const</span> renderMode = overriding.renderMode || <span class="hljs-string">"optimizeLegibility"</span>;
+  <span class="hljs-keyword">const</span> size1 = overriding.size1 || <span class="hljs-string">"3rem"</span>;
+  <span class="hljs-keyword">const</span> size2 = overriding.size2 || <span class="hljs-string">"2.5rem"</span>;
+  <span class="hljs-keyword">const</span> weightLight = overriding.weightLight || <span class="hljs-number">300</span>;
+  <span class="hljs-keyword">const</span> weightNormal = overriding.weightNormal || <span class="hljs-number">400</span>;
+  <span class="hljs-keyword">const</span> gap = overriding.gap || <span class="hljs-string">"64px"</span>;
+  <span class="hljs-keyword">const</span> camelCasedGap = overriding.camelCasedGap || <span class="hljs-string">"100px"</span>;
+  <span class="hljs-keyword">const</span> tablet = overriding.tablet || <span class="hljs-string">"769px"</span>;
+  <span class="hljs-keyword">const</span> desktop = overriding.desktop || evaluate(<span class="hljs-string">`960px+(2*<span class="hljs-subst">${gap}</span>)`</span>);
+  <span class="hljs-keyword">const</span> widescreen =
+    overriding.widescreen || evaluate(<span class="hljs-string">`1152px+(2*<span class="hljs-subst">${camelCasedGap}</span>)`</span>);
+  <span class="hljs-keyword">const</span> widescreenEnabled = overriding.widescreenEnabled || <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">const</span> fullhd = overriding.fullhd || evaluate(<span class="hljs-string">`1344px+(2*<span class="hljs-subst">${gap}</span>)`</span>);
+  <span class="hljs-keyword">const</span> fullhdEnabled = overriding.fullhdEnabled || <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">const</span> easing = overriding.easing || <span class="hljs-string">"ease-out"</span>;
+  <span class="hljs-keyword">const</span> radiusSmall = overriding.radiusSmall || <span class="hljs-string">"2px"</span>;
+  <span class="hljs-keyword">const</span> radius = overriding.radius || <span class="hljs-string">"4px"</span>;
+  <span class="hljs-keyword">const</span> variableColumns = overriding.variableColumns || <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">const</span> colors = {
+    white,
+    black,
+    light,
+    lightInvert,
+    dark,
+    darkInvert,
+    primary,
+    primaryInvert,
+    link,
+    linkInvert,
+    info,
+    infoInvert,
+    success,
+    successInvert,
+    warning,
+    warningInvert,
+    danger,
+    dangerInvert
+  };
+  <span class="hljs-keyword">const</span> shades = {
+    blackBis,
+    blackTer,
+    greyDarker,
+    greyDark,
+    grey,
+    greyLight,
+    greyLighter,
+    whiteTer,
+    whiteBis
+  };
+  <span class="hljs-keyword">return</span> {
+    black,
+    blackBis,
+    blackTer,
+    greyDarker,
+    familySansSerif,
+    familyMonospace,
+    renderMode,
+    size1,
+    size2,
+    weightLight,
+    weightNormal,
+    gap,
+    camelCasedGap,
+    tablet,
+    desktop,
+    widescreen,
+    widescreenEnabled,
+    fullhd,
+    fullhdEnabled,
+    easing,
+    radiusSmall,
+    radius,
+    variableColumns,
+    colors,
+    shades
+  };
+};</code></pre>
+				<h3 id="creating-theme-function-just-for-components">Creating theme function just for components</h3>
+				<p>As you are able to <code>chain</code> and <code>map</code> all theme function, you can combine them together to make a bigger theme - it is huge win, as you can have well define components and separate them to rest of your <code>sass</code> framework without loosing any data.</p>
+				<h4 id="adopting-is-bulma-extension">Adopting is <a href="https://wikiki.github.io/">bulma extension</a></h4>
+				<p>create sass file</p>
+				<pre><code class="language-sass">// Calendar.sass
+@import &#39;@hungry/bulma-theme/bulma-utils.sass&#39;
+@import &#39;bulma-calendar/src/sass/index.sass&#39;</code></pre>
+				<pre><code class="language-ts"><span class="hljs-comment">// generator file</span>
+<span class="hljs-keyword">const</span> { parseFile } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@hungry/sass-ts-theme-creator'</span>)
+
+<span class="hljs-keyword">const</span> themeFile = parseFile({
+  file: <span class="hljs-string">'./Calendar.sass'</span>,
+  includePaths: <span class="hljs-string">'your node_modules folder'</span>
+})</code></pre>
+				<h3 id="eh-got-a-performance-issue-as-file-with-typing-is-too-big">eh ... got a performance issue as file with typing is too big</h3>
+				<p>Happen, but easy enough - just split couple of files instead of one massive <code>variable.sass</code> file - all <code>theme</code> files are <code>mappable</code> and <code>chainable</code> so you can join them as you want</p>
+				<h4 id="customizations">Customizations</h4>
+				<ul>
+					<li>how to define different parser<ul>
+							<li>TODO</li>
+						</ul>
+					</li>
+					<li>how to define different template<ul>
+							<li>TODO</li>
+						</ul>
+					</li>
+				</ul>
+				<h3 id="if-something-does-not-work-">If something does not work ...</h3>
+				<p>Raise an issue - happy to help, however PR are most welcome - hopefully code is easy to follow</p>
+				<h3 id="similar-projects">Similar projects</h3>
+				<ul>
+					<li><a href="https://www.npmjs.com/package/sass-extract">sass-extract</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_get_from_file_.html">"get-<wbr>from-<wbr>file"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_parse_sass_.html">"parse-<wbr>sass"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_parse_variable_type_.html">"parse-<wbr>variable-<wbr>type"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_sass_ast_.html">"sass-<wbr>ast"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_sass_to_typescript_.html">"sass-<wbr>to-<wbr>typescript"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_sass_to_typescript_template_.html">"sass-<wbr>to-<wbr>typescript-<wbr>template"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_sass_type_resolver_.html">"sass-<wbr>type-<wbr>resolver"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_variable_descriptor_.html">"variable-<wbr>descriptor"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

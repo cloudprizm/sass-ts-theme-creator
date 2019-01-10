@@ -186,7 +186,7 @@ export const getExpression: SassTypeResolver = [
   ast => {
     const expression = ast.children('value')
     const varName = getVariableName(ast)
-    const rawExpression = nodeToString(expression.get(0))
+    // const rawExpression = nodeToString(expression.get(0))
     const args = expression
       .children('variable')
       .children()

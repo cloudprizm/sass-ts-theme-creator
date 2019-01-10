@@ -1,12 +1,19 @@
 {
   "name": "@hungry/sass-ts-theme-creator",
   "version": "0.0.1",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "license": "MIT",
   "private": false,
   "sideEffects": false,
   "scripts": {
-    "archetype:update": "spell new package"
+    "archetype:update": "spell new library-os",
+    "build:code": "babel src -d dist --extensions '.ts','.tsx'",
+    "prepublish": "yarn test && yarn build",
+    "test": "jest",
+    "build:declarations": "tsc --build tsconfig.json",
+    "build": "concurrently --names '@hungry/sass-ts-theme-creator' 'yarn build:declarations' 'yarn build:code'",
+    "watch": "concurrently --names '@hungry/sass-ts-theme-creator' 'yarn build:declarations --watch' 'yarn build:code --watch'",
+    "docs": "typedoc --out docs"
   },
   "keywords": [
     "sass",
@@ -29,9 +36,36 @@
   "devDependencies": {
     "@types/node-sass": "^3.10.32"
   },
-  "homepage": "https://github.com/hungry-consulting/sass-ts-theme-creator",
+  "homepage": "https://github.com/hungry-consulting/hungry-consulting/sass-ts-theme-creator",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hungry-consulting/sass-ts-theme-creator"
+    "url": "https://github.com/hungry-consulting/hungry-consulting/sass-ts-theme-creator"
+  },
+  "babel": {
+    "presets": [
+      "@hungry/cli"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "typings": "dist/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/hungry-consulting/hungry-consulting/sass-ts-theme-creator/issues",
+    "email": "damian.baar@gmail.com"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "babel-jest"
+    },
+    "testRegex": "/__tests__/.*\\.test\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

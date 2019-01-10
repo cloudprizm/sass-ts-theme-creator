@@ -1,8 +1,8 @@
-import { sassToTypescript } from './sass-to-typescript'
-import { percentToString, toHexColor } from './parse-variable-type'
-import { parseSass, parse } from './parse-sass'
-import { getAST } from './sass-ast'
-import { makeFunction } from './sass-to-typescript-template'
+import { sassToTypescript } from '../src/sass-to-typescript'
+import { percentToString, toHexColor } from '../src/parse-variable-type'
+import { parseSass, parse } from '../src/parse-sass'
+import { getAST } from '../src/sass-ast'
+import { makeFunction } from '../src/sass-to-typescript-template'
 
 // fixtures - required by bulma
 const simpleColor = '$colorVar: #DDEEFF'
