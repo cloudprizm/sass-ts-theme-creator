@@ -13,7 +13,7 @@
     "build:declarations": "tsc --build tsconfig.json",
     "build": "concurrently --names '@hungry/sass-ts-theme-creator' 'yarn build:declarations' 'yarn build:code'",
     "watch": "concurrently --names '@hungry/sass-ts-theme-creator' 'yarn build:declarations --watch' 'yarn build:code --watch'",
-    "docs": "typedoc --out docs"
+    "docs": "typedoc --out docs ./src/*.ts"
   },
   "keywords": [
     "sass",
