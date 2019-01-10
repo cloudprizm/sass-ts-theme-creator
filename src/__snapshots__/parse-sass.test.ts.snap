@@ -390,9 +390,7 @@ export type BulmaTheme = Record<BulmaVars, string> & { size_1: number } & {
     | 'dangerInvert',
     string
   >
-} & { sizesArray: Array<number> } & { booleanType: boolean } & {
-  numberType: number
-}
+} & { sizesArray: number[] } & { booleanType: boolean } & { numberType: number }
 
 export const makeBasicTheme = () => (
   overriding: Partial<BulmaTheme>
@@ -604,7 +602,7 @@ colors
 `;
 
 exports[`resolve array of numbers 1`] = `
-"export type BulmaTheme = { dimensions: Array<number> }
+"export type BulmaTheme = { dimensions: number[] }
 
 export const makeBasicTheme = () => (
   overriding: Partial<BulmaTheme>
@@ -694,7 +692,7 @@ exports[`test sizes 1`] = `
     
   
     export type BulmaVars = \\"size_1\\"|\\"size_2\\"
-    export type BulmaTheme = Record<BulmaVars, string>&{sizesArray: Array<string>}
+    export type BulmaTheme = Record<BulmaVars, string>&{sizesArray: string[]}
 
     export const makeBasicTheme = () => (overriding: Partial<BulmaTheme>): BulmaTheme => {
       const size_1 = overriding.size_1 || \\"3rem\\"
@@ -710,7 +708,7 @@ sizesArray
 `;
 
 exports[`test sizes from bulma - parsing array of values 1`] = `
-"export type BulmaTheme = { sizes: Array<string> }
+"export type BulmaTheme = { sizes: string[] }
 
 export const makeBasicTheme = () => (
   overriding: Partial<BulmaTheme>

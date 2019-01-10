@@ -46,7 +46,7 @@ const toRecordType =
     `Record<${toUnionType(keys)}, ${value}>`
 
 const toArrayType = (value: string) =>
-  `Array<${value}>`
+  `${value}[]`
 
 const getVariableByName = (variables: SassVariableDescriptor[], varName: string) =>
   findFirst(variables, d => d.name === varName)
