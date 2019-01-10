@@ -1,30 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`add test for negative numbers since it is resolved by expression 1`] = `
-"export type Methods = \\"evaluate\\";
+"export type Methods = 'evaluate'
 export type InjectedMethods = Record<
   Methods,
   (val: string | string[], src?: string) => string
->;
+>
 
 export type BulmaVars =
-  | \\"navbarDropdownOffset\\"
-  | \\"navbarBottomBoxShadowSize\\"
-  | \\"navbarDropdownBoxedShadow\\"
-  | \\"tableCellBorderWidth\\"
-  | \\"tableCellPadding\\"
-  | \\"mixedContentWithString\\";
-export type BulmaTheme = Record<BulmaVars, string>;
+  | 'navbarDropdownOffset'
+  | 'navbarBottomBoxShadowSize'
+  | 'navbarDropdownBoxedShadow'
+  | 'tableCellBorderWidth'
+  | 'tableCellPadding'
+  | 'mixedContentWithString'
+export type BulmaTheme = Record<BulmaVars, string>
 
 export const makeBasicTheme = ({ evaluate }: InjectedMethods) => (
   overriding: Partial<BulmaTheme>
 ): BulmaTheme => {
   const navbarDropdownOffset =
     overriding.navbarDropdownOffset ||
-    evaluate([\`-4px\`], \\"navbarDropdownOffset\\");
+    evaluate([\`-4px\`], 'navbarDropdownOffset')
   const navbarBottomBoxShadowSize =
     overriding.navbarBottomBoxShadowSize ||
-    evaluate([\`0\`, \`-2px\`, \`0\`, \`0\`], \\"navbarBottomBoxShadowSize\\");
+    evaluate([\`0\`, \`-2px\`, \`0\`, \`0\`], 'navbarBottomBoxShadowSize')
   const navbarDropdownBoxedShadow =
     overriding.navbarDropdownBoxedShadow ||
     evaluate(
@@ -40,17 +40,17 @@ export const makeBasicTheme = ({ evaluate }: InjectedMethods) => (
         \`1px\`,
         \`rgba(\${black}, 0.1)\`
       ],
-      \\"navbarDropdownBoxedShadow\\"
-    );
+      'navbarDropdownBoxedShadow'
+    )
   const tableCellBorderWidth =
     overriding.tableCellBorderWidth ||
-    evaluate([\`0\`, \`0\`, \`1px\`], \\"tableCellBorderWidth\\");
+    evaluate([\`0\`, \`0\`, \`1px\`], 'tableCellBorderWidth')
   const tableCellPadding =
     overriding.tableCellPadding ||
-    evaluate([\`0.5em\`, \`0.75em\`], \\"tableCellPadding\\");
+    evaluate([\`0.5em\`, \`0.75em\`], 'tableCellPadding')
   const mixedContentWithString =
     overriding.mixedContentWithString ||
-    evaluate([\`5px\`, \`solid\`, \`border\`], \\"mixedContentWithString\\");
+    evaluate([\`5px\`, \`solid\`, \`border\`], 'mixedContentWithString')
   return {
     navbarDropdownOffset,
     navbarBottomBoxShadowSize,
@@ -58,113 +58,110 @@ export const makeBasicTheme = ({ evaluate }: InjectedMethods) => (
     tableCellBorderWidth,
     tableCellPadding,
     mixedContentWithString
-  };
-};
+  }
+}
 "
 `;
 
 exports[`boxshadow 1`] = `
-"export type Methods = \\"color\\" | \\"evaluate\\";
+"export type Methods = 'color' | 'evaluate'
 export type InjectedMethods = Record<
   Methods,
   (val: string | string[], src?: string) => string
->;
+>
 
-export type BulmaVars = \\"black\\" | \\"inputShadow\\";
-export type BulmaTheme = Record<BulmaVars, string>;
+export type BulmaVars = 'black' | 'inputShadow'
+export type BulmaTheme = Record<BulmaVars, string>
 
 export const makeBasicTheme = ({ color, evaluate }: InjectedMethods) => (
   overriding: Partial<BulmaTheme>
 ): BulmaTheme => {
-  const black = overriding.black || color(\`hsl(0%, 0%, \${percent})\`);
+  const black = overriding.black || color(\`hsl(0%, 0%, \${percent})\`)
   const inputShadow =
     overriding.inputShadow ||
-    evaluate(
-      [\`inset\`, \`0\`, \`1px\`, \`2px\`, \`rgba(\${black}, 0.1)\`],
-      \\"inputShadow\\"
-    );
+    evaluate([\`inset\`, \`0\`, \`1px\`, \`2px\`, \`rgba(\${black}, 0.1)\`], 'inputShadow')
   return {
     black,
     inputShadow
-  };
-};
+  }
+}
 "
 `;
 
 exports[`bulma variables parsing - with formatting 1`] = `
-"export type Methods = \\"color\\" | \\"evaluate\\";
+"export type Methods = 'color' | 'evaluate'
 export type InjectedMethods = Record<
   Methods,
   (val: string | string[], src?: string) => string
->;
+>
 
 export type BulmaVars =
-  | \\"black\\"
-  | \\"blackBis\\"
-  | \\"blackTer\\"
-  | \\"greyDarker\\"
-  | \\"familySansSerif\\"
-  | \\"familyMonospace\\"
-  | \\"renderMode\\"
-  | \\"size_1\\"
-  | \\"size_2\\"
-  | \\"gap\\"
-  | \\"camelCasedGap\\"
-  | \\"tablet\\"
-  | \\"desktop\\"
-  | \\"widescreen\\"
-  | \\"fullhd\\"
-  | \\"easing\\"
-  | \\"radiusSmall\\"
-  | \\"radius\\";
+  | 'black'
+  | 'blackBis'
+  | 'blackTer'
+  | 'greyDarker'
+  | 'familySansSerif'
+  | 'familyMonospace'
+  | 'renderMode'
+  | 'size_1'
+  | 'size_2'
+  | 'gap'
+  | 'camelCasedGap'
+  | 'tablet'
+  | 'desktop'
+  | 'widescreen'
+  | 'fullhd'
+  | 'easing'
+  | 'radiusSmall'
+  | 'radius'
 export type BulmaTheme = Record<BulmaVars, string> & { weightLight: number } & {
-  weightNormal: number;
+  weightNormal: number
 } & { widescreenEnabled: boolean } & { fullhdEnabled: boolean } & {
-  variableColumns: boolean;
+  variableColumns: boolean
 } & {
   colors: Record<
-    | \\"white\\"
-    | \\"black\\"
-    | \\"light\\"
-    | \\"lightInvert\\"
-    | \\"dark\\"
-    | \\"darkInvert\\"
-    | \\"primary\\"
-    | \\"primaryInvert\\"
-    | \\"link\\"
-    | \\"linkInvert\\"
-    | \\"info\\"
-    | \\"infoInvert\\"
-    | \\"success\\"
-    | \\"successInvert\\"
-    | \\"warning\\"
-    | \\"warningInvert\\"
-    | \\"danger\\"
-    | \\"dangerInvert\\",
+    | 'white'
+    | 'black'
+    | 'light'
+    | 'lightInvert'
+    | 'dark'
+    | 'darkInvert'
+    | 'primary'
+    | 'primaryInvert'
+    | 'link'
+    | 'linkInvert'
+    | 'info'
+    | 'infoInvert'
+    | 'success'
+    | 'successInvert'
+    | 'warning'
+    | 'warningInvert'
+    | 'danger'
+    | 'dangerInvert',
     string
-  >;
+  >
 } & {
   shades: Record<
-    | \\"blackBis\\"
-    | \\"blackTer\\"
-    | \\"greyDarker\\"
-    | \\"greyDark\\"
-    | \\"grey\\"
-    | \\"greyLight\\"
-    | \\"greyLighter\\"
-    | \\"whiteTer\\"
-    | \\"whiteBis\\",
+    | 'blackBis'
+    | 'blackTer'
+    | 'greyDarker'
+    | 'greyDark'
+    | 'grey'
+    | 'greyLight'
+    | 'greyLighter'
+    | 'whiteTer'
+    | 'whiteBis',
     string
-  >;
-};
+  >
+}
 
 export const makeBasicTheme = ({ color, evaluate }: InjectedMethods) => (
   overriding: Partial<BulmaTheme>
 ): BulmaTheme => {
-  const black = overriding.black || color(\`hsl(0, 0%, 4%)\`);
-  const blackBis = overriding.blackBis || color(\`hsl(0, 0%, 7%)\`);
-  const blackTer = overriding.blackTer || color(\`hsl(0, 0%, 14%)\`);
-  const greyDarker = overriding.greyDarker || color(\`hsl(0, 0%, 21%)\`);
+  const black = overriding.black || color(\`hsl(0, 0%, 4%)\`)
+  const blackBis = overriding.blackBis || color(\`hsl(0, 0%, 7%)\`)
+  const blackTer = overriding.blackTer || color(\`hsl(0, 0%, 14%)\`)
+  const greyDarker = overriding.greyDarker || color(\`hsl(0, 0%, 21%)\`)
   const familySansSerif =
     overriding.familySansSerif ||
     evaluate(
@@ -195,30 +192,30 @@ export const makeBasicTheme = ({ color, evaluate }: InjectedMethods) => (
         \`,\`,
         \`sans-serif\`
       ],
-      \\"familySansSerif\\"
-    );
-  const familyMonospace = overriding.familyMonospace || \\"monospace\\";
-  const renderMode = overriding.renderMode || \\"optimizeLegibility\\";
-  const size_1 = overriding.size_1 || \\"3rem\\";
-  const size_2 = overriding.size_2 || \\"2.5rem\\";
-  const weightLight = overriding.weightLight || 300;
-  const weightNormal = overriding.weightNormal || 400;
-  const gap = overriding.gap || \\"64px\\";
-  const camelCasedGap = overriding.camelCasedGap || \\"100px\\";
-  const tablet = overriding.tablet || \\"769px\\";
+      'familySansSerif'
+    )
+  const familyMonospace = overriding.familyMonospace || 'monospace'
+  const renderMode = overriding.renderMode || 'optimizeLegibility'
+  const size_1 = overriding.size_1 || '3rem'
+  const size_2 = overriding.size_2 || '2.5rem'
+  const weightLight = overriding.weightLight || 300
+  const weightNormal = overriding.weightNormal || 400
+  const gap = overriding.gap || '64px'
+  const camelCasedGap = overriding.camelCasedGap || '100px'
+  const tablet = overriding.tablet || '769px'
   const desktop =
-    overriding.desktop || evaluate([\`960px\`, \`+\`, \`(2 * \${gap})\`], \\"desktop\\");
+    overriding.desktop || evaluate([\`960px\`, \`+\`, \`(2 * \${gap})\`], 'desktop')
   const widescreen =
     overriding.widescreen ||
-    evaluate([\`1152px\`, \`+\`, \`(2 * \${camelCasedGap})\`], \\"widescreen\\");
-  const widescreenEnabled = overriding.widescreenEnabled || true;
+    evaluate([\`1152px\`, \`+\`, \`(2 * \${camelCasedGap})\`], 'widescreen')
+  const widescreenEnabled = overriding.widescreenEnabled || true
   const fullhd =
-    overriding.fullhd || evaluate([\`1344px\`, \`+\`, \`(2 * \${gap})\`], \\"fullhd\\");
-  const fullhdEnabled = overriding.fullhdEnabled || true;
-  const easing = overriding.easing || \\"ease-out\\";
-  const radiusSmall = overriding.radiusSmall || \\"2px\\";
-  const radius = overriding.radius || \\"4px\\";
-  const variableColumns = overriding.variableColumns || true;
+    overriding.fullhd || evaluate([\`1344px\`, \`+\`, \`(2 * \${gap})\`], 'fullhd')
+  const fullhdEnabled = overriding.fullhdEnabled || true
+  const easing = overriding.easing || 'ease-out'
+  const radiusSmall = overriding.radiusSmall || '2px'
+  const radius = overriding.radius || '4px'
+  const variableColumns = overriding.variableColumns || true
   const colors = {
     white,
     black,
@@ -238,7 +235,7 @@ export const makeBasicTheme = ({ color, evaluate }: InjectedMethods) => (
     warningInvert,
     danger,
     dangerInvert
-  };
+  }
   const shades = {
     blackBis,
     blackTer,
@@ -249,7 +246,7 @@ export const makeBasicTheme = ({ color, evaluate }: InjectedMethods) => (
     greyLighter,
     whiteTer,
     whiteBis
-  };
+  }
   return {
     black,
     blackBis,
@@ -276,8 +273,8 @@ export const makeBasicTheme = ({ color, evaluate }: InjectedMethods) => (
     variableColumns,
     colors,
     shades
-  };
-};
+  }
+}
 "
 `;
 
@@ -370,38 +367,38 @@ exports[`color - rgba 1`] = `
 `;
 
 exports[`export correct types 1`] = `
-"export type BulmaVars = \\"white\\" | \\"colorType\\";
+"export type BulmaVars = 'white' | 'colorType'
 export type BulmaTheme = Record<BulmaVars, string> & { size_1: number } & {
   colorHashMap: Record<
-    | \\"white\\"
-    | \\"black\\"
-    | \\"light\\"
-    | \\"lightInvert\\"
-    | \\"dark\\"
-    | \\"darkInvert\\"
-    | \\"primary\\"
-    | \\"primaryInvert\\"
-    | \\"link\\"
-    | \\"linkInvert\\"
-    | \\"info\\"
-    | \\"infoInvert\\"
-    | \\"success\\"
-    | \\"successInvert\\"
-    | \\"warning\\"
-    | \\"warningInvert\\"
-    | \\"danger\\"
-    | \\"dangerInvert\\",
+    | 'white'
+    | 'black'
+    | 'light'
+    | 'lightInvert'
+    | 'dark'
+    | 'darkInvert'
+    | 'primary'
+    | 'primaryInvert'
+    | 'link'
+    | 'linkInvert'
+    | 'info'
+    | 'infoInvert'
+    | 'success'
+    | 'successInvert'
+    | 'warning'
+    | 'warningInvert'
+    | 'danger'
+    | 'dangerInvert',
     string
-  >;
+  >
 } & { sizesArray: Array<number> } & { booleanType: boolean } & {
-  numberType: number;
-};
+  numberType: number
+}
 
 export const makeBasicTheme = () => (
   overriding: Partial<BulmaTheme>
 ): BulmaTheme => {
-  const size_1 = overriding.size_1 || 1;
-  const white = overriding.white || \\"#FFEEDD\\";
+  const size_1 = overriding.size_1 || 1
+  const white = overriding.white || '#FFEEDD'
   const colorHashMap = {
     white,
     black,
@@ -421,11 +418,11 @@ export const makeBasicTheme = () => (
     warningInvert,
     danger,
     dangerInvert
-  };
-  const sizesArray = [size_1, size_2, size_3, size_4, size_5, size_6, size_7];
-  const booleanType = overriding.booleanType || true;
-  const numberType = overriding.numberType || 1;
-  const colorType = overriding.colorType || \\"#FFEEDD\\";
+  }
+  const sizesArray = [size_1, size_2, size_3, size_4, size_5, size_6, size_7]
+  const booleanType = overriding.booleanType || true
+  const numberType = overriding.numberType || 1
+  const colorType = overriding.colorType || '#FFEEDD'
   return {
     size_1,
     white,
@@ -434,8 +431,8 @@ export const makeBasicTheme = () => (
     booleanType,
     numberType,
     colorType
-  };
-};
+  }
+}
 "
 `;
 
@@ -542,25 +539,25 @@ controlPaddingHorizontal
 `;
 
 exports[`loading all sass files 1`] = `
-"export type BulmaVars = \\"strongColor\\" | \\"strongWeight\\";
+"export type BulmaVars = 'strongColor' | 'strongWeight'
 export type BulmaTheme = Record<BulmaVars, string> & { someVar: number } & {
-  someVar2: number;
-};
+  someVar2: number
+}
 
 export const makeBasicTheme = () => (
   overriding: Partial<BulmaTheme>
 ): BulmaTheme => {
-  const someVar = overriding.someVar || 1;
-  const someVar2 = overriding.someVar2 || 1;
-  const strongColor = overriding.strongColor || textStrong;
-  const strongWeight = overriding.strongWeight || weightBold;
+  const someVar = overriding.someVar || 1
+  const someVar2 = overriding.someVar2 || 1
+  const strongColor = overriding.strongColor || textStrong
+  const strongWeight = overriding.strongWeight || weightBold
   return {
     someVar,
     someVar2,
     strongColor,
     strongWeight
-  };
-};
+  }
+}
 "
 `;
 
@@ -607,16 +604,16 @@ colors
 `;
 
 exports[`resolve array of numbers 1`] = `
-"export type BulmaTheme = { dimensions: Array<number> };
+"export type BulmaTheme = { dimensions: Array<number> }
 
 export const makeBasicTheme = () => (
   overriding: Partial<BulmaTheme>
 ): BulmaTheme => {
-  const dimensions = [16, 24, 32, 48, 64, 96, 128];
+  const dimensions = [16, 24, 32, 48, 64, 96, 128]
   return {
     dimensions
-  };
-};
+  }
+}
 "
 `;
 
@@ -713,16 +710,16 @@ sizesArray
 `;
 
 exports[`test sizes from bulma - parsing array of values 1`] = `
-"export type BulmaTheme = { sizes: Array<string> };
+"export type BulmaTheme = { sizes: Array<string> }
 
 export const makeBasicTheme = () => (
   overriding: Partial<BulmaTheme>
 ): BulmaTheme => {
-  const sizes = [size_1, size_2, size_3, size_4, size_5, size_6, size_7];
+  const sizes = [size_1, size_2, size_3, size_4, size_5, size_6, size_7]
   return {
     sizes
-  };
-};
+  }
+}
 "
 `;
 
@@ -752,22 +749,22 @@ dangerInvert
 
 exports[`traversing to get correct non string type 1`] = `
 "export type BulmaTheme = { numberValue: number } & {
-  numberReferenceA: number;
-} & { numberReferenceB: number } & { numberReferenceC: number };
+  numberReferenceA: number
+} & { numberReferenceB: number } & { numberReferenceC: number }
 
 export const makeBasicTheme = () => (
   overriding: Partial<BulmaTheme>
 ): BulmaTheme => {
-  const numberValue = overriding.numberValue || 1;
-  const numberReferenceA = overriding.numberReferenceA || numberValue;
-  const numberReferenceB = overriding.numberReferenceB || numberReferenceA;
-  const numberReferenceC = overriding.numberReferenceC || numberReferenceB;
+  const numberValue = overriding.numberValue || 1
+  const numberReferenceA = overriding.numberReferenceA || numberValue
+  const numberReferenceB = overriding.numberReferenceB || numberReferenceA
+  const numberReferenceC = overriding.numberReferenceC || numberReferenceB
   return {
     numberValue,
     numberReferenceA,
     numberReferenceB,
     numberReferenceC
-  };
-};
+  }
+}
 "
 `;
