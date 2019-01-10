@@ -17,8 +17,9 @@ export const getAllFilesFromEntryPoint =
       .join('\n')
   }
 
-export const parseFile = (sassOptions: NodeSassOptions, prettierOptions: PrettierOptions) =>
-  sassToTypescript(
-    getAllFilesFromEntryPoint(sassOptions),
-    prettierOptions
-  )
+export const parseFile =
+  (sassOptions: NodeSassOptions, prettierOptions?: PrettierOptions) =>
+    sassToTypescript(
+      getAllFilesFromEntryPoint(sassOptions),
+      prettierOptions
+    )
