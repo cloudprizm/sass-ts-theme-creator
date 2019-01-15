@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/hungry-consulting/sass-ts-theme-creator
 	branch = master
-	commit = e1093c5f8063ebb66f3205aa7bacd275456e3c37
+	commit = 200b1a2d1f22a625236703c4de27dd7a77fbcfd7
 	method = merge
 	cmdver = 0.4.0
-	parent = bd82641d82b4b863125910ed5cec8c71e71b13aa
+	parent = b3fd24f6e59e77c7f95d948cf5d99f46b06dd8c9
