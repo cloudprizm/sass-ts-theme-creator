@@ -1,6 +1,6 @@
 {
   "name": "@hungry/sass-ts-theme-creator",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "license": "MIT",
   "private": false,
@@ -34,11 +34,11 @@
     "toposort-object": "^1.0.1"
   },
   "devDependencies": {
-    "@types/node-sass": "^3.10.32",
-    "@hungry/babel-preset-cli": "^0.1.1",
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
+    "@hungry/babel-preset-cli": "^0.1.2",
     "@types/jest": "^23.3.12",
+    "@types/node-sass": "^3.10.32",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "concurrently": "^4.1.0",
